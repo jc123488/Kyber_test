@@ -25,30 +25,30 @@ if __name__ == '__main__' :
     for i in range(0,256,1):
         coef[i] = int(polys[i])
 
-    # for i in range(0,128,1):
-    #     coef_even = 0
-    #     reverse_i = bit_reverse(i)
-    #     for j in range(0,128,1):
-    #         mul = ((2*reverse_i+1)*j)%256
-    #         coef_even += int(polys[j*2])*int(roots[mul])
-    #     print(coef_even%3329,end='')
-    #     print(", ",end='')
-    #     # coef[i*2]=coef_even%3329
-    len = 128
-    start = 0
-    k = 1
-    while len >= 2:
-        while start < 256:
-            k = k+1
-            zeta = int(roots[1])
-            j = start
-            range = start+len
-            while j < range:
-                t = zeta * coef[j+len]
-                coef[j+len] = coef[j] - t
-                coef[j] = coef[j] + t
-                j=j+1
-        len = len/2
+    for i in range(0,128,1):
+        coef_even = 0
+        reverse_i = bit_reverse(i)
+        for j in range(0,128,1):
+            mul = ((2*reverse_i+1)*j)%256
+            coef_even += int(polys[j*2])*int(roots[mul])
+        print(coef_even%3329,end='')
+        print(", ",end='')
+        # coef[i*2]=coef_even%3329
+    # len = 128
+    # start = 0
+    # k = 1
+    # while len >= 2:
+    #     while start < 256:
+    #         k = k+1
+    #         zeta = int(roots[1])
+    #         j = start
+    #         range = start+len
+    #         while j < range:
+    #             t = zeta * coef[j+len]
+    #             coef[j+len] = coef[j] - t
+    #             coef[j] = coef[j] + t
+    #             j=j+1
+    #     len = len/2
 
     print("\n")
     print("End of even coefficient")

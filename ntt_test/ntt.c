@@ -26,16 +26,22 @@ void ntt(int16_t r[256]) {
 
   k = 1;
   for(len = 128; len >= 2; len >>= 1) {//128
-      printf("len is %d \n",len);
+      printf("=================       len is %d       ================= \n",len);
+      printf("\n");
     for(start = 0; start < 256; start = j + len) { //256
        zeta = zetas[k++];
-      printf("  start is %d,k is %d,zetas is %d \n",start,k-1,zeta);
+      printf("  start is %d, k is %d\n",start,k-1);
+      printf("\n");
       for(j = start; j < start + len; ++j) {
-        //t = fqmul(zeta, r[j + len]);
-        //r[j + len] = r[j] - t;
-        //r[j] = r[j] + t;
+        t = (zeta * r[j + len])%3329;
+        printf(" t = zeta * r[%d] is %d, zetas is %d, r[%d] is %d\n",j+len,t,zeta,j+len,r[j+len]);
+        r[j + len] = (r[j] - t)%3329;
+        r[j] = (r[j] + t)%3329;
+        printf("  After butterfly computation: \n");
+        printf("  r[%d] is %d, r[%d] is %d\n",j+len,r[j+len],j,r[j]);
+        printf("\n");
         store_pos=j+len;
-        //printf("        len is %d j is %d,j+len %d \n",len,j,store_pos);
+        //printf("===========len is %d j is %d,j+len %d============= \n",len,j,store_pos);
       }
     }
   }
@@ -45,6 +51,11 @@ void ntt(int16_t r[256]) {
 int main()
 {
     int16_t r[256];
+    for(int i =0;i<256;i++){
+	    r[i]=i;
+      // printf("%d = %d \n",i,r[i]);
+    }
+    
     //r=0;
     ntt(r);
     return 0;

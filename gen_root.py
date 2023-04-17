@@ -20,3 +20,4 @@ if __name__ == '__main__' :
         print((17**r_i)%3329,end='')
         print(", ",end='')
     # print("]")
+    
